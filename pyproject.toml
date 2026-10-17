@@ -1,16 +1,25 @@
 [project]
 name = "pydabs-genie-agent-retarget"
-version = "0.1.0"
+version = "0.1.1"
 description = "Rewrite Unity Catalog references in Genie Agent (Genie space) definitions; a PyDABs mutator for Declarative Automation Bundles"
+readme = "README.md"
+authors = [
+    { name = "Alex Ott", email = "alexott@gmail.com" }
+]
+keywords = ["dabs", "genie-agents"]
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
 dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/alexott/pydabs-genie-agent-retarget"
+Issues = "https://github.com/alexott/pydabs-genie-agent-retarget/issues"
 
 [project.optional-dependencies]
 bundles = ["databricks-bundles>=1.19.0"]
 
 [project.scripts]
-genie-agent-retarget = "genie_agent_retarget:main"
+dabs-genie-agent-retarget = "genie_agent_retarget:main"
 
 [dependency-groups]
 dev = ["pytest>=8.0", "databricks-bundles>=1.19.0"]
