@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: release
-      url: https://pypi.org/p/cyber-spark-data-connectors
+      url: https://pypi.org/p/pydabs-genie-agent-retarget
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
       contents: write
