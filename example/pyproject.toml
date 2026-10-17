@@ -7,7 +7,7 @@ dependencies = []
 [dependency-groups]
 dev = [
     "databricks-bundles==1.19.0",
-    # In your project: "pydabs-genie-agent-retarget @ git+https://github.com/alexott/pydabs-genie-agent-retarget"
+    # Use "pydabs-genie-agent-retarget @ git+https://github.com/alexott/pydabs-genie-agent-retarget" if you want not released version
     "pydabs-genie-agent-retarget",
 ]
 
