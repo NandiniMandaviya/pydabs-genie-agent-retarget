@@ -1,0 +1,20 @@
+resources:
+  genie_spaces:
+    cve_analysis:
+      title: "Analysis of CVEs"
+      warehouse_id: ${var.warehouse_id}
+      parent_path: /Workspace/Users/${workspace.current_user.userName}
+      file_path: ../src/analysis_of_cves.geniespace.json
+      description: |-
+        This space provides structured access to comprehensive CVE (Common Vulnerabilities and Exposures) v5 data, supporting analysis of security vulnerabilities, affected products, and severity metrics.  
+
+        **Capabilities:**
+        - Analyze vulnerability trends over time using CVE IDs, years, states, and publication/update dates.
+        - Assess vulnerability severity and impact through CVSS scores, severities, CWE classifications, and exploitation indicators.
+        - Identify affected vendors, products, and versions to target risk management and remediation efforts.
+        - Track reference sources and supporting documentation for vulnerabilities.
+
+        **Limitations:**
+        - Does not include real-time exploit or threat data beyond reported CVEs.
+        - Lacks detailed remediation status or patch information for vulnerabilities.
+        - Business impact and asset inventory are not captured within this dataset.

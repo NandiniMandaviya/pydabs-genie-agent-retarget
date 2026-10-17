@@ -1,0 +1,68 @@
+bundle:
+  name: genie-agent-retarget-example
+  engine: direct
+
+python:
+  venv_path: .venv
+  mutators:
+    # Rewrite catalog/schema/table references in every Genie space of the bundle
+    # with the rules from var.genie_table_mapping.
+    - 'genie_agent_retarget:retarget_genie_spaces'
+
+include:
+  - resources/*.yml
+
+variables:
+  ocsf_schema:
+    description: catalog.schema with the OCSF gold tables.
+    default: fe_lakewatch_catalog.gold
+  cve_schema:
+    description: catalog.schema with the cves_v5 table.
+    default: fe_lakewatch_catalog.lakewatch_field
+  iocs_table:
+    description: catalog.schema.table of the IoC table.
+    default: fe_lakewatch_catalog.lakewatch_field.oss_iocs
+  warehouse_name:
+    description: SQL warehouse that runs Genie queries.
+    default: "Lakewatch Warehouse"
+  warehouse_id:
+    lookup:
+      warehouse: ${var.warehouse_name}
+  genie_table_mapping:
+    description: >-
+      Rewrite rules for Genie space definitions, from the names used in
+      src/*.geniespace.json to the names in this target. A key is a catalog,
+      catalog.schema, or catalog.schema.table; the value has the same number of
+      parts. The most specific rule wins.
+    type: complex
+    default:
+      fe_lakewatch_catalog.gold: ${var.ocsf_schema}
+      fe_lakewatch_catalog.lakewatch_field: ${var.cve_schema}
+      fe_lakewatch_catalog.lakewatch_field.oss_iocs: ${var.iocs_table}
+
+targets:
+  dev:
+    default: true
+    mode: development
+    workspace:
+      profile: lw-field
+    variables:
+      ocsf_schema: fe_lakewatch_catalog.genie_demo_ocsf
+      cve_schema: fe_lakewatch_catalog.genie_demo_intel
+      iocs_table: fe_lakewatch_catalog.genie_demo_intel.iocs
+
+  # Another workspace where the same data is in other catalogs and schemas.
+  azure:
+    mode: development
+    workspace:
+      profile: az-alexott
+    variables:
+      ocsf_schema: lw_aottdb_ws.gold
+      cve_schema: cybersecurity.datasets
+      iocs_table: cybersecurity.threatintel.iocs
+
+  prod:
+    mode: production
+    workspace:
+      profile: lw-field
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}

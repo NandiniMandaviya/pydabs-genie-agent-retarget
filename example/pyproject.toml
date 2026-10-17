@@ -1,0 +1,18 @@
+[project]
+name = "genie-agent-retarget-example"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "databricks-bundles==1.19.0",
+    # In your project: "pydabs-genie-agent-retarget @ git+https://github.com/alexott/pydabs-genie-agent-retarget"
+    "pydabs-genie-agent-retarget",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+pydabs-genie-agent-retarget = { path = "..", editable = true }

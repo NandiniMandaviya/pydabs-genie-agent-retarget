@@ -1,0 +1,24 @@
+resources:
+  genie_spaces:
+    security_operations:
+      title: "Lakewatch Security Operations"
+      warehouse_id: ${var.warehouse_id}
+      parent_path: /Workspace/Users/${workspace.current_user.userName}
+      file_path: ../src/lakewatch_security_operations.geniespace.json
+      description: |-
+        Enterprise cybersecurity operations center monitoring identity management, network traffic, endpoint activity, threat detections, vulnerability assessments, and data loss prevention across cloud and on-premises infrastructure. Covers: Normalized security event data spanning user authentication and account changes, network and DNS traffic flows, email communications, file and datastore operations, API usage, process and script execution, SSH sessions, vulnerability and threat detection findings, incident reports, data security policy violations, and identity access privilege assignments  -  all enriched with device, cloud, actor, and endpoint context.
+
+        **Capabilities:**
+
+        - Analyze authentication events, account and access changes, privilege assignments, and group/user management activity to answer who did what, when, and where.
+        - Investigate network, process, file, script, API, email, and HTTP activities for threat detection, anomaly identification, and incident response.
+        - Assess and track security findings, vulnerabilities, and incident correlations by severity, impact, risk level, and affected resources for triage and remediation prioritization.
+        - Segment analysis by key dimensions such as user, device, application, cloud provider, region, privilege, and action type.
+        - Trace event lineage, session context, and enrichments for deeper forensic analysis and audit trails.
+        - Data is normalized to OCSF schema.
+
+        **Limitations:**
+
+        - Does not include business application usage data or productivity metrics outside security-context events.
+        - Cannot analyze financial outcomes, customer sentiment, or direct operational efficiency unrelated to security or access control.
+        - Does not provide real-time dashboards; focused on historical event data for investigation and compliance review.
