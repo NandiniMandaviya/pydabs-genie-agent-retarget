@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.10"
 
 [[package]]
@@ -61,29 +61,22 @@ wheels = [
 
 [[package]]
 name = "pydabs-genie-agent-retarget"
-version = "0.1.0"
+version = "0.1.2"
 source = { editable = "." }
-
-[package.optional-dependencies]
-bundles = [
+dependencies = [
     { name = "databricks-bundles" },
 ]
 
 [package.dev-dependencies]
 dev = [
-    { name = "databricks-bundles" },
     { name = "pytest" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "databricks-bundles", marker = "extra == 'bundles'", specifier = ">=1.19.0" }]
-provides-extras = ["bundles"]
+requires-dist = [{ name = "databricks-bundles", specifier = ">=1.19.0" }]
 
 [package.metadata.requires-dev]
-dev = [
-    { name = "databricks-bundles", specifier = ">=1.19.0" },
-    { name = "pytest", specifier = ">=8.0" },
-]
+dev = [{ name = "pytest", specifier = ">=8.0" }]
 
 [[package]]
 name = "pygments"
