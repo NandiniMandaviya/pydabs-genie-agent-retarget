@@ -9,20 +9,17 @@ authors = [
 keywords = ["dabs", "genie-agents"]
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
-dependencies = []
+dependencies = ["databricks-bundles>=1.19.0"]
 
 [project.urls]
 Homepage = "https://github.com/alexott/pydabs-genie-agent-retarget"
 Issues = "https://github.com/alexott/pydabs-genie-agent-retarget/issues"
 
-[project.optional-dependencies]
-bundles = ["databricks-bundles>=1.19.0"]
-
 [project.scripts]
 dabs-genie-agent-retarget = "genie_agent_retarget:main"
 
 [dependency-groups]
-dev = ["pytest>=8.0", "databricks-bundles>=1.19.0"]
+dev = ["pytest>=8.0"]
 
 [build-system]
 requires = ["hatchling"]

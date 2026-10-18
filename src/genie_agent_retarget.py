@@ -39,6 +39,9 @@ import sys
 from dataclasses import replace
 from typing import Any, Mapping
 
+from databricks.bundles.core import Bundle, Variable, genie_space_mutator
+from databricks.bundles.genie_spaces import GenieSpace
+
 __all__ = ["Rules", "parse_rules", "map_name", "retarget_text", "retarget_space",
            "retarget_genie_spaces", "MAPPING_VARIABLE"]
 
@@ -215,33 +218,27 @@ def _identifiers(space: dict) -> list[str]:
 # ---------------------------------------------------------------------------
 # DABs (PyDABs) mutator
 
-def _bundle_rules(bundle) -> Rules:
+def _bundle_rules(bundle: Bundle) -> Rules:
     if MAPPING_VARIABLE not in bundle.variables:
         raise ValueError(f"genie_agent_retarget: define a complex variable '{MAPPING_VARIABLE}' "
                          "in databricks.yml (use {} for no rewriting)")
-    from databricks.bundles.core import Variable
     value = bundle.resolve_variable(Variable(path=f"var.{MAPPING_VARIABLE}", type=dict[str, str]))
     return parse_rules(value or {})
 
 
-try:
-    from databricks.bundles.core import genie_space_mutator
-except ImportError:  # databricks-bundles not installed: pure functions and CLI still work
-    retarget_genie_spaces = None
-else:
-    @genie_space_mutator
-    def retarget_genie_spaces(bundle, space):
-        """Rewrite every Genie space in the bundle with `var.genie_table_mapping`."""
-        serialized = space.serialized_space
-        if serialized is None:
-            return space
-        rules = _bundle_rules(bundle)
-        original = json.loads(serialized) if isinstance(serialized, str) else serialized
-        body, _ = retarget_space(original, rules)
-        if body == original:
-            return space
-        # file_path and an inline serialized_space are mutually exclusive.
-        return replace(space, file_path=None, serialized_space=json.dumps(body, indent=2))
+@genie_space_mutator
+def retarget_genie_spaces(bundle: Bundle, space: GenieSpace) -> GenieSpace:
+    """Rewrite every Genie space in the bundle with `var.genie_table_mapping`."""
+    serialized = space.serialized_space
+    if serialized is None:
+        return space
+    rules = _bundle_rules(bundle)
+    original = json.loads(serialized) if isinstance(serialized, str) else serialized
+    body, _ = retarget_space(original, rules)
+    if body == original:
+        return space
+    # file_path and an inline serialized_space are mutually exclusive.
+    return replace(space, file_path=None, serialized_space=json.dumps(body, indent=2))
 
 
 # ---------------------------------------------------------------------------

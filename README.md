@@ -38,7 +38,9 @@ because it is ambiguous.
    ]
    ```
 
-   Or copy `src/genie_agent_retarget.py` next to `databricks.yml`. It has no
+   `databricks-bundles` is a dependency of `pydabs-genie-agent-retarget`; pin it
+   in your project to match your Databricks CLI version. Or copy
+   `src/genie_agent_retarget.py` next to `databricks.yml`. It has no
    dependencies except `databricks-bundles`.
 
 2. Register the mutator and define the `genie_table_mapping` variable in
