@@ -4,6 +4,8 @@ This project allows to rewrite Unity Catalog references in [Databricks Genie
 Agent](https://docs.databricks.com/aws/en/genie-agents/) (formerly Genie space)
 definitions when you deploy them with Declarative Automation Bundles (DABs).
 
+You can read more about this project in a blog post [Deploying Databricks Genie Agents to multiple environments with DABs](https://alexott.blogspot.com/2026/10/deploying-databricks-genie-agents-to.html).
+
 > [!NOTE]
 > We use "agent" and "space" interchangeably in this document and in the source code.
 
